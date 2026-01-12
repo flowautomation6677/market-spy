@@ -187,7 +187,10 @@ export default function Wizard() {
 
                                         <div className="bg-white rounded-2xl shadow-xl border-2 border-green-500 overflow-hidden relative ring-4 ring-green-50/50">
                                             {/* IMG SECTION WITH CAROUSEL */}
-                                            <div className="bg-gray-50 h-64 md:h-72 relative group"> {/* Increased height */}
+                                            <div
+                                                className="bg-gray-50 h-64 md:h-72 relative group cursor-pointer"
+                                                onClick={() => setIsLightboxOpen(true)}
+                                            >
 
                                                 {/* Image */}
                                                 {bestChoice.images && bestChoice.images.length > 0 ? (
