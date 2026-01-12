@@ -24,7 +24,7 @@ export const PROJECTS: Project[] = [
         title: 'Modelo Borboleta',
         color: 'Transparente/Azul',
         client: 'Ana - SP',
-        daysToMake: 12,
+        daysToMake: 15,
         imageUrl: '/images/resina-oval-borboleta-azul.jpg',
         fullImageUrl: '/images/resina-borboleta-azul-aberto.jpg',
         testimonial: 'Ficou exatamente como imaginei! A transparência deu um toque único ao banheiro.'
@@ -34,7 +34,7 @@ export const PROJECTS: Project[] = [
         title: 'Modelo Peixes',
         color: 'Fundo do Mar Vermelho',
         client: 'Roberto - RJ',
-        daysToMake: 10,
+        daysToMake: 15,
         imageUrl: '/images/resina-vermelha-peixes.jpg',
         fullImageUrl: '/images/resina-vermelha-peixes-aberto.jpg',
         testimonial: 'Acabamento impecável. É pesado e não escorrega. Meus netos adoraram.'
@@ -54,7 +54,7 @@ export const PROJECTS: Project[] = [
         title: 'Resina Black',
         color: 'Preto Sólido/Marmorizado',
         client: 'Marcos - PR',
-        daysToMake: 11,
+        daysToMake: 15,
         imageUrl: '/images/resina-oval-preta.jpg',
         fullImageUrl: '/images/resina-oval-preta.jpg',
     }
@@ -294,7 +294,7 @@ export function CatalogSection() {
 // FAQ SECTION
 export function FaqSection() {
     const FAQS = [
-        { q: 'Qual o prazo de entrega?', a: 'O tempo de fabricação artesanal é de 10 a 12 dias úteis. Somando ao transporte, você recebe em média entre 15 a 20 dias após o pedido.' },
+        { q: 'Qual o prazo de entrega?', a: 'O tempo de fabricação artesanal é de 15 dias úteis. Somando ao transporte, você recebe em média entre 20 a 25 dias após o pedido.' },
         { q: 'E se a cor ficar diferente?', a: 'Nós enviamos uma amostra digital (foto/vídeo) da cor preparada antes de iniciar a moldagem final. Você aprova tudo pelo WhatsApp.' },
         { q: 'Serve em qualquer vaso?', a: 'Sim! Como é sob medida, nós usamos o molde exato da louça do seu vaso. Por isso a foto inicial é tão importante.' },
         { q: 'Qual a diferença do pronto (R$ 189) pro personalizado (R$ 409)?', a: 'O modelo pronto é injetado em larga escala. O personalizado é feito à mão, em resina maciça de poliéster, com polimento automotivo individual. É uma peça de decoração.' }
