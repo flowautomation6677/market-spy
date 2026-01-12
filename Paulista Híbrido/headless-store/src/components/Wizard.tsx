@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { reportConversion, pushDataLayer } from '@/lib/googleAds';
-import { Camera, ArrowRight, Maximize2, X } from 'lucide-react';
+import { Camera, ArrowRight, Maximize2, X, ChevronLeft } from 'lucide-react';
 import { getRecommendations, getCheckoutUrl, getWhatsAppUrl } from '@/lib/products';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -43,7 +43,18 @@ export default function Wizard() {
         <div className="flex flex-col min-h-screen bg-gray-50 font-sans">
             {/* STICKY HEADER */}
             <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-100 py-4 px-6 flex items-center justify-between">
-                <div className="font-bold text-xl text-blue-900 tracking-tight">Paulista<span className="text-blue-600">.store</span></div>
+                <div className="flex items-center gap-2">
+                    {step === 'RESULT' && (
+                        <button
+                            onClick={() => setStep('SHAPE')}
+                            className="p-1 -ml-2 mr-1 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
+                            aria-label="Voltar"
+                        >
+                            <ChevronLeft className="w-6 h-6" />
+                        </button>
+                    )}
+                    <div className="font-bold text-xl text-blue-900 tracking-tight">Paulista<span className="text-blue-600">.store</span></div>
+                </div>
                 <div className="text-sm font-medium text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
                     Passo {step === 'SHAPE' ? '1' : '2'} de 2
                 </div>
