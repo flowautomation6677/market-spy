@@ -47,10 +47,11 @@ export default function Wizard() {
                     {step === 'RESULT' && (
                         <button
                             onClick={() => setStep('SHAPE')}
-                            className="p-1 -ml-2 mr-1 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
+                            className="flex items-center gap-1 pr-4 pl-2 py-2 -ml-2 mr-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-all font-bold text-sm shadow-sm active:scale-95"
                             aria-label="Voltar"
                         >
-                            <ChevronLeft className="w-6 h-6" />
+                            <ChevronLeft className="w-5 h-5" />
+                            VOLTAR
                         </button>
                     )}
                     <div className="font-bold text-xl text-blue-900 tracking-tight">Paulista<span className="text-blue-600">.store</span></div>
