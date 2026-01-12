@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { reportConversion } from '@/lib/googleAds';
+import { reportConversion, pushDataLayer } from '@/lib/googleAds';
 import { Camera, ArrowRight, Maximize2, X } from 'lucide-react';
 import { getRecommendations, getCheckoutUrl, getWhatsAppUrl } from '@/lib/products';
 import { clsx } from 'clsx';
@@ -29,6 +29,8 @@ export default function Wizard() {
     const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
     const handleShapeSelect = (shapeId: string) => {
+        // Track shape selection
+        pushDataLayer('select_shape', { shape_id: shapeId });
         setSelectedShape(shapeId);
         setStep('RESULT');
     };
@@ -475,6 +477,13 @@ export default function Wizard() {
                         exit={{ opacity: 0 }}
                         className="fixed inset-0 z-[100] bg-black bg-opacity-95 flex items-center justify-center p-0 md:p-4 touch-none"
                         onClick={() => setIsLightboxOpen(false)}
+                        onAnimationComplete={() => {
+                            // Track zoom view
+                            pushDataLayer('view_product_zoom', {
+                                product_name: bestChoice.name,
+                                image_index: currentImageIndex
+                            });
+                        }}
                     >
                         <div className="relative w-full h-full flex items-center justify-center">
                             <button

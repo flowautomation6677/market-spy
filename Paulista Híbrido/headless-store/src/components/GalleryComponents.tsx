@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Check } from 'lucide-react';
 import { getWhatsAppUrl } from '@/lib/products';
-import { reportConversion } from '@/lib/googleAds';
+import { reportConversion, pushDataLayer } from '@/lib/googleAds';
 
 // MOCK DATA FOR PROJECTS
 export interface Project {
@@ -73,7 +73,13 @@ export function ProjectGrid() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         className="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow cursor-pointer"
-                        onClick={() => setSelectedProject(project)}
+                        onClick={() => {
+                            pushDataLayer('view_project_details', {
+                                project_id: project.id,
+                                project_title: project.title
+                            });
+                            setSelectedProject(project);
+                        }}
                     >
                         {/* Image Area */}
                         <div className="aspect-square bg-gray-100 relative overflow-hidden">

@@ -1,28 +1,58 @@
 export const GTA_CONVERSION_ID = 'AW-11403461866/sWcRCMmYsvYYEOqJzL0q';
 
+// Helper to safely access global object
+const getGlobal = () => {
+    if (typeof globalThis !== 'undefined') return globalThis;
+    if (typeof window !== 'undefined') return window;
+    return undefined;
+};
+
 /**
- * Reports a conversion to Google Ads and then navigates to the URL.
- * Matches the behavior of the provided snippet:
- * function gtag_report_conversion(url) { ... }
+ * Pushes a custom event to the DataLayer.
+ * Safe to call even if GTM is not loaded yet (window.dataLayer will be initialized).
+ */
+export const pushDataLayer = (eventName: string, data: Record<string, any> = {}) => {
+    const glob = getGlobal();
+    if (glob) {
+        const dataLayer = (glob as any).dataLayer || [];
+        dataLayer.push({
+            event: eventName,
+            ...data
+        });
+        (glob as any).dataLayer = dataLayer;
+
+        // Dev log
+        console.log(`[GTM] Event: ${eventName}`, data);
+    }
+};
+
+/**
+ * Reports a conversion to Google Ads (via GTM) and then navigates to the URL.
+ * Now it triggers a 'conversion_click' event which GTM listens to.
  */
 export const reportConversion = (url: string) => {
-    const callback = () => {
-        if (typeof url !== 'undefined') {
-            window.location.href = url;
+    // Check if url is valid
+    if (!url) return false;
+
+    // Define navigation callback
+    const navigate = () => {
+        const glob = getGlobal();
+        if (glob) {
+            (glob as any).location.href = url;
         }
     };
 
-    // Check if gtag is loaded
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'conversion', {
-            'send_to': GTA_CONVERSION_ID,
-            'event_callback': callback
-        });
-    } else {
-        // If gtag is not defined (e.g., blocked by adblock), just navigate
-        console.warn('Google Tag not found, navigating directly.');
-        callback();
-    }
+    // Push event to DataLayer
+    pushDataLayer('conversion_click', {
+        destination_url: url,
+        event_callback: navigate,
+        event_timeout: 2000 // Fallback if GTM takes too long
+    });
 
-    return false;
+    // Fallback safety: if GTM doesn't trigger the callback within 500ms, go anyway
+    setTimeout(() => {
+        navigate();
+    }, 500);
+
+    return true; // Changed to match typical success pattern, though previously false
 };
